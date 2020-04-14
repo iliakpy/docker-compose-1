@@ -1,0 +1,17 @@
+version: '2'
+services:
+  tomcat:
+    image: tomcat:8.0
+    ports:
+      - "8080:8080"
+    volumes:
+      - war-volume:/usr/local/tomcat/webapps/
+  war:
+    build:
+      context: ./
+      dockerfile: Dockerfile.dev      
+    volumes:
+      - war-volume:/usr/local/tomcat/webapps/
+
+volumes:
+  war-volume:
