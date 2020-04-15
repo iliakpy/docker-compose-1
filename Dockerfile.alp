@@ -1,0 +1,14 @@
+FROM alpine:3.7
+RUN apk add --no-cache --update-cache openjdk8 curl && \
+    curl -o /usr/local/tomcat.tar.gz http://mirror.linux-ia64.org/apache/tomcat/tomcat-8/v8.5.54/bin/apache-tomcat-8.5.54.tar.gz && \
+    tar xzvf /usr/local/tomcat.tar.gz -C /usr/local && \
+    mv /usr/local/apache-tomcat-8.5.54 /usr/local/tomcat && \
+    rm /usr/local/tomcat.tar.gz && \
+    rm -rf /usr/local/tomcat/webapps/examples && \
+    rm -rf /usr/local/tomcat/webapps/docs && \
+    rm -rf /usr/local/tomcat/webapps/ROOT && \
+    rm -rf /tmp/* /var/cache/apk/* && \
+    apk del curl
+
+EXPOSE 8080
+CMD ["/usr/local/tomcat/bin/catalina.sh", "run"]
